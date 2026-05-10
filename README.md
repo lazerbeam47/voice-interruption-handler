@@ -55,7 +55,7 @@ The plumbing is the product in voice AI. This project teaches you the plumbing.
          ▼
 ┌──────────────────┐
 │   LLM (Gemini)   │
-│  gemini-2.0-flash│
+│  gemini-2.5-flash│
 │  ~1300ms         │
 └────────┬─────────┘
          │
@@ -272,13 +272,13 @@ segments, _ = model.transcribe(tmp_path)
 
 `tiny` model = 40MB, ~1500ms on CPU. `small` model = 500ms but larger download.
 
-### LLM — Gemini 2.0 Flash
+### LLM — Gemini 2.5 Flash
 
 Gemini receives the transcript and returns a response. Conversation history is maintained so the bot has memory across turns:
 
 ```python
 conversation.append({"role": "user",  "parts": [user_text]})
-result = client_gemini.models.generate_content(model="gemini-2.0-flash", contents=user_text)
+result = client_gemini.models.generate_content(model="gemini-2.5-flash", contents=user_text)
 conversation.append({"role": "model", "parts": [result.text]})
 ```
 
