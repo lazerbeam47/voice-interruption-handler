@@ -365,6 +365,61 @@ python3 stage5_metrics.py
 
 First run downloads the Whisper tiny model (~40MB). Cached after that.
 
+## Running
+
+Quick steps to run the demos on macOS (zsh):
+
+1. Create and activate a virtualenv (recommended):
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+2. Install dependencies:
+
+```bash
+pip install sounddevice numpy webrtcvad faster-whisper google-genai gtts pygame
+```
+
+3. Grant microphone access (macOS):
+
+- Open System Settings → Privacy & Security → Microphone and enable access for your terminal app.
+
+4. Set your Gemini API key (needed for the full pipeline in stage 5):
+
+```bash
+export GEMINI_API_KEY="your-key-here"
+# or run a single command with the variable:
+GEMINI_API_KEY="your-key-here" python3 stage5_metrics.py
+```
+
+5. Run individual stages (each is standalone):
+
+```bash
+# stage 1: verify microphone + RMS values
+python3 stage1_rms.py
+
+# stage 2: VAD demo, prints SPEECH START / END events
+python3 stage2_vad.py
+
+# stage 3: barge-in demo with fake TTS (sine wave)
+python3 stage3_bargein.py
+
+# stage 4: state machine tests / demo
+python3 stage4_state.py
+
+# stage 5: full pipeline (Whisper → Gemini → gTTS)
+python3 stage5_metrics.py
+```
+
+6. Stop any running script with Ctrl+C.
+
+Troubleshooting:
+- No audio input/output: check macOS sound settings and microphone permissions.
+- Install errors: ensure you are using the virtualenv and a supported Python (3.9+ recommended).
+- If Whisper model downloads stall: check network and rerun the stage; the model caches after the first download.
+
 ---
 
 ## Project Structure
